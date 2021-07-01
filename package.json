@@ -8,7 +8,9 @@
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/uuid": "^8.3.0",
+    "bcryptjs": "^2.4.3",
     "docker-compose": "^0.23.12",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",

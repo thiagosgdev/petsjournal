@@ -3,6 +3,10 @@ import express, { NextFunction, Request, Response } from 'express';
 import 'reflect-metadata';
 
 import 'express-async-errors';
+import { router } from 'shared/infra/http/routes';
+import { createConnection } from 'typeorm';
+
+createConnection();
 
 const app = express();
 
@@ -18,6 +22,8 @@ app.use(
         });
     }
 );
+
+app.use(router);
 
 app.listen(3333, () => console.log("Server is runnig"));
 

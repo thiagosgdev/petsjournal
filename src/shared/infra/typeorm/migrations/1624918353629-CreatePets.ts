@@ -39,7 +39,7 @@ export class CreatePets1624918353629 implements MigrationInterface {
                     },
                     {
                         name: "weight"  ,
-                        type: "number"
+                        type: "numeric"
                     },
                     {
                         name: "birthdate",
