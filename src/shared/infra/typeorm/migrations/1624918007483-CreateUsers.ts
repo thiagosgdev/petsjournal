@@ -25,6 +25,11 @@ export class CreateUsers1624918007483 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
+                        name: "token",
+                        type: "varchar",
+                        isNullable: true
+                    },
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()",

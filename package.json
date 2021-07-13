@@ -7,13 +7,21 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only  --ignore-watch node_modules --respawn src/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/uuid": "^8.3.0",
     "bcryptjs": "^2.4.3",
+    "dayjs": "^1.10.6",
     "docker-compose": "^0.23.12",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.1.6",
@@ -22,13 +30,18 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@types/express": "^4.17.12",
+    "@types/jsonwebtoken": "^8.5.4",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "@typescript-eslint/parser": "^4.28.1",
+    "commitizen": "^4.2.4",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-import-helpers": "^1.1.0",
+    "husky": "^7.0.0",
     "prettier": "^2.3.2",
     "ts-node-dev": "^1.1.6",
     "tsconfig-paths": "^3.9.0",

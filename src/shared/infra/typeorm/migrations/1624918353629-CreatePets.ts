@@ -19,7 +19,13 @@ export class CreatePets1624918353629 implements MigrationInterface {
                     },
                     {
                         name: "species",
-                        type: "varchar"
+                        type: "enum",
+                        enum:['cat', 'dog', 'bird', 'fish']
+                    },
+                    {
+                        name: "gender",
+                        type: "enum",
+                        enum: ['male', 'female']
                     },
                     {
                         name: "color",

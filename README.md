@@ -21,7 +21,7 @@ VACCINATION
   id, name, doses, pet_id, next_vaccine, created_at, updated_at
 
 TREATMENTS
-  id, name, description, pet_id, consult_id, created_at, updated_at
+  id, name, description, pet_id, consult_id, remedie_id, created_at, updated_at
   
 REMEDIES
   id, name, description, expires, treatment_id, created_at, updated_at
