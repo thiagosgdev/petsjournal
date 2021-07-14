@@ -1,6 +1,7 @@
 import { UsersRepositoryInMemory } from "modules/users/repositories/inMemory/UsersRepositoryInMemory";
 import { UsersTokensRepositoryInMemory } from "modules/users/repositories/inMemory/UsersTokensRepositoryInMemory";
 import { DayjsDateProvider } from "shared/container/providers/DateProvider/implementations/DayjsDateProvider";
+import { AppError } from "shared/errors/AppError";
 import { CreateUserUseCase } from "../createUsers/CreateUserUseCase";
 import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 
@@ -39,5 +40,33 @@ describe("Authenticate User", () => {
         const tokenCreated = await authenticateUseCase.execute(email, password);
 
         expect(tokenCreated).toHaveProperty("token");
-    })
+    });
+    it("Should NOT be able to authenticate a user that doesn't exists", async ( ) => {
+        const email = "null@null.com";
+        const password = "null";
+        await expect( async () =>{
+            await authenticateUseCase.execute(
+                email,
+                password,
+            )
+        }
+        ).rejects.toEqual(new AppError("Email or password incorrect!"))
+    });
+    it("Should NOT be able to authenticate a user with email/password NOT matching", async ( ) => {
+        const email = "wrong@wwrong.com";
+        const password = "wrong";
+
+        await createUserUseCase.execute({
+            name: "User test",
+            email: "test@email.com",
+            password: "1234"
+        });
+        await expect( async () =>{
+            await authenticateUseCase.execute(
+                email,
+                password,
+            )
+        }
+        ).rejects.toEqual(new AppError("Email or password incorrect!"))
+    });
 });

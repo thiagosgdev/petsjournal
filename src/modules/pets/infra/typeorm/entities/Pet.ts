@@ -1,6 +1,8 @@
 
+import { Appointment } from "modules/treatments/infra/typeorm/Appointment";
+import { Treatment } from "modules/treatments/infra/typeorm/Treatment";
 import { User } from "modules/users/infra/typeorm/entities/User";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
 
@@ -51,6 +53,12 @@ class Pet {
 
     @Column()
     user_id: string;
+
+    @OneToMany(() => Appointment, appointment => appointment.pet)
+    appointment: Appointment;
+
+    @OneToMany(() => Treatment, treatment => treatment.pet)
+    treatment: Treatment;
 
     @ManyToOne(() => User, user => user.pets)   
     @JoinColumn({name: "user_id"})
