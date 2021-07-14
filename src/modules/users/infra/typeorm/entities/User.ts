@@ -1,5 +1,5 @@
-import { Pet } from "modules/pets/infra/typeorm/entities/Pet";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Pet } from "modules/pets/infra/typeorm/entities/Pet";
 import { v4 as uuidV4 } from "uuid";
 
 @Entity("users")

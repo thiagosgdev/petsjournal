@@ -1,3 +1,4 @@
+
 import { User } from "modules/users/infra/typeorm/entities/User";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
@@ -51,7 +52,7 @@ class Pet {
     @Column()
     user_id: string;
 
-    @ManyToOne(() => User)   
+    @ManyToOne(() => User, user => user.pets)   
     @JoinColumn({name: "user_id"})
     user: User;    
 

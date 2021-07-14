@@ -56,11 +56,18 @@ class PetsRepository implements IPetsRepository{
         return pet;
     }
     async findByUser(user_id: string): Promise<Pet[]> {
-        const pet = await this.repository.find({            
-            where: {user_id},
-            relations: ["user"],
-        });
-                
+        // const pet = await this.repository.find({            
+        //     where: {user_id},
+        //     relations: ["user"],
+        // });
+
+        const pet = await this.repository.createQueryBuilder("pets")
+            .leftJoin("pets.user", "user")
+            .select("pets")
+            .addSelect("user.name") 
+            .addSelect("user.email")           
+            .where("pets.user_id = :user_id", { user_id})
+            .getMany();                
         return pet;
     }
 }

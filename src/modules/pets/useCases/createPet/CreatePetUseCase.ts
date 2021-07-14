@@ -2,6 +2,7 @@
 import { ICreatePetDTO } from "modules/pets/dtos/ICreatePetDTO";
 import { Pet } from "modules/pets/infra/typeorm/entities/Pet";
 import { IPetsRepository } from "modules/pets/repositories/IPetsRepository";
+import { AppError } from "shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -26,7 +27,7 @@ class CreatePetUseCase {
         const petAlreadyExists = await this.petsRepository.findByChip(chip_number);
 
         if(petAlreadyExists){
-            throw new Error("Pet already Exists!");
+            throw new AppError("Pet already Exists!");
         }
 
        const pet =  await this.petsRepository.create({

@@ -2,6 +2,7 @@ import { Router } from "express";
 import { CreatePetController } from "modules/pets/useCases/createPet/CreatePetController";
 import { ListPetsByUser } from "modules/pets/useCases/listPetsByUser/ListPetsByUserController";
 import { ProfilePetController } from "modules/pets/useCases/profilePet/ProfilePetController";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 
 
@@ -11,7 +12,7 @@ const createPetController = new CreatePetController();
 const profilePetController = new ProfilePetController();
 const listPetsByUser = new ListPetsByUser();
 
-petsRoutes.post("/", createPetController.handle);
+petsRoutes.post("/", ensureAuthenticated, createPetController.handle);
 petsRoutes.get("/:chip_number", profilePetController.handle);
 petsRoutes.get("/users/:user_id", listPetsByUser.handle)
 

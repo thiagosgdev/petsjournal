@@ -1,0 +1,116 @@
+{
+    "openapi":"3.0.0",
+    "info": {
+        "title": "PetsJournal",
+        "description": "This is an API to document my pets life at the same time project to solidify my knowlodge in Node + Express and TDD",
+        "version": "1.0",
+        "contact": {
+            "email": "thiagosgdev@gmail.com",
+            "linkedin": "https://www.linkedin.com/in/thiago-santos-goncalves"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create a User",
+                "description": "Create a new User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "User test",
+                                    "email": "test@test.com",
+                                    "password": "teste"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "User already exists!"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["Users"],
+                "summary": "Profile of an User",
+                "description": "List the information of an User",
+                "security": [
+                    { "bearerAuth": []}
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pets": {
+            "post": {
+                "tags": ["Pets"],
+                "summary": "Create a Pet",
+                "description": "Create a new Pet requiring an User  ID",
+                "security": [
+                    { "bearerAuth": [] }
+                ] ,
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type":"object",
+                                "properties": {
+                                    "name": {
+                                        "type":"string"
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+            },
+            "get": {
+
+            }
+        }
+    }
+}

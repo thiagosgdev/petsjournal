@@ -1,5 +1,7 @@
-import { User } from "modules/users/infra/typeorm/entities/User";
+import { IUserResponseDTO } from "modules/users/dtos/IUserResponseDTO";
+import { UserMap } from "modules/users/mapper/UserMap";
 import { IUsersRepository } from "modules/users/repositories/IUsersRepository";
+import { AppError } from "shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 
@@ -10,13 +12,13 @@ class ProfileUserUseCase{
         private usersRepository: IUsersRepository
     ){}
 
-    async execute({id}):Promise<User>{
+    async execute({id}):Promise<IUserResponseDTO>{
         const user = await this.usersRepository.findById(id);
         if(!user){
-            throw new Error ("User doesn't exists!");
+            throw new AppError ("User doesn't exists!");
         }
 
-        return user;
+        return UserMap.toDTO(user);
     }
 }
 

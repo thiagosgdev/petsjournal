@@ -6,6 +6,7 @@ import { IUsersRepository } from "modules/users/repositories/IUsersRepository";
 import { IUsersTokensRepository } from "modules/users/repositories/IUsersTokensRepository";
 import { IDateProvider } from "shared/container/providers/DateProvider/IDateProvider";
 import { inject, injectable } from "tsyringe";
+import { AppError } from "shared/errors/AppError";
 
 
 interface IResponse {
@@ -43,13 +44,13 @@ export class AuthenticateUserUseCase {
         } = auth;
 
         if(!user) {
-            throw new Error("Email or password incorrect!");
+            throw new AppError("Email or password incorrect!");
         }
 
         const passwordMatch = await compare(password, user.password);
 
         if(!passwordMatch){
-            throw new Error("Email or password incorrect!");
+            throw new AppError("Email or password incorrect!");
         }
 
         const token = sign({}, secret_token, {
