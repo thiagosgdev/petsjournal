@@ -22,8 +22,8 @@ export class Appointment {
     @JoinColumn({name: "pet_id"})
     pet: Pet;
 
-    @ManyToOne(() => Treatment, treatment => treatment.appointment)
-    treatment: Treatment
+    @Column()
+    pet_id: string;
 
     @CreateDateColumn()
     created_at: Date;

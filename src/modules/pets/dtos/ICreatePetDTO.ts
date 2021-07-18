@@ -1,4 +1,3 @@
-import { User } from "modules/users/infra/typeorm/entities/User";
 
 enum PetSpecies{
     CAT = 'CAT',
@@ -26,4 +25,4 @@ interface ICreatePetDTO {
     id?: string;
 }
 
-export { ICreatePetDTO }
+export { ICreatePetDTO, PetGender, PetSpecies }

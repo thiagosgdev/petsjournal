@@ -11,7 +11,7 @@ export class ProfilePetUseCase {
         private petsRepository: IPetsRepository
     ){}
 
-    async execute(chip_number){
+    async execute(chip_number: string){
         const pet = await this.petsRepository.findByChip(chip_number);
 
         if(!pet){

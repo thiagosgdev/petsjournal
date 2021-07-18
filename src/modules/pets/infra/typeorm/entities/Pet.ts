@@ -1,6 +1,6 @@
 
-import { Appointment } from "modules/treatments/infra/typeorm/Appointment";
-import { Treatment } from "modules/treatments/infra/typeorm/Treatment";
+import { Appointment } from "modules/treatments/infra/typeorm/entities/Appointment";
+import { Treatment } from "modules/treatments/infra/typeorm/entities/Treatment";
 import { User } from "modules/users/infra/typeorm/entities/User";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";

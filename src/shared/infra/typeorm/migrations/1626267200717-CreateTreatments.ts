@@ -30,6 +30,16 @@ export class CreateTreatments1626267200717 implements MigrationInterface {
                         type: "uuid",
                     },
                     {
+                        name: "start_date",
+                        type: "timestamp",
+                        isNullable: true
+                    },
+                    {
+                        name: "end_date",
+                        type: "timestamp",
+                        isNullable: true
+                    },
+                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now ()"
