@@ -1,4 +1,3 @@
-import { PetSpecies } from "modules/pets/dtos/ICreatePetDTO";
 import { PetsRepositoryInMemory } from "modules/pets/repositories/inMemory/PetsRepositoryInMemory";
 import { UsersRepositoryInMemory } from "modules/users/repositories/inMemory/UsersRepositoryInMemory";
 import { CreateUserUseCase } from "modules/users/useCases/createUsers/CreateUserUseCase";

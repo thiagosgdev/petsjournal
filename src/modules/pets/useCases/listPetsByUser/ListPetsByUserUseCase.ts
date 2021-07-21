@@ -15,7 +15,7 @@ export class ListPetsByUserUseCase {
         const pet = await this.petsRepository.findByUser(user_id);
 
         if(!pet) {
-            throw new Error("No pet found for this User!");
+            throw new AppError("No pet found for this User!");
         }
 
         return pet;

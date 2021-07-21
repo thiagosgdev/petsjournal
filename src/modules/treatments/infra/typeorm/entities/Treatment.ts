@@ -1,7 +1,7 @@
 import { Pet } from "modules/pets/infra/typeorm/entities/Pet";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
-import { Appointment } from "./Appointment";
+import { Remedie } from "./Remedie";
 
 @Entity("treatments")
 export class Treatment {
@@ -21,6 +21,13 @@ export class Treatment {
     @ManyToOne(() => Pet, pet => pet.treatment)
     @JoinColumn({name: "pet_id"})
     pet: Pet
+
+    @ManyToOne(() => Remedie)
+    @JoinColumn({name: "remedie_id"})
+    remedie: Remedie[];
+
+    @Column()
+    remedie_id: string;
 
     @Column()
     pet_id:string

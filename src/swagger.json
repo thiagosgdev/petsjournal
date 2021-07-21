@@ -56,6 +56,13 @@
                 "security": [
                     { "bearerAuth": []}
                 ],
+                "parameters": [{
+                    "name": "user_id",
+                    "in": "path",
+                    "description": "The user that needs to be fetched.",
+                    "required": true,
+                    "type": "string"
+                }],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -100,16 +107,109 @@
                                 "properties": {
                                     "name": {
                                         "type":"string"
+                                    },
+                                    "species": {
+                                        "type": "string"
+                                    },
+                                    "gender": {
+                                        "type": "string"
+                                    },
+                                    "breed": {
+                                        "type": "string"
+                                    },
+                                    "color": {
+                                        "type": "string"
+                                    },
+                                    "weight": {
+                                        "type": "number"
+                                    },
+                                    "birthdate": {
+                                        "type": "Date"
+                                    },
+                                    "chip_number": {
+                                        "type": "string"
+                                    },
+                                    "chip_website": {
+                                        "type": "string"
+                                    },
+                                    "user_id": {
+                                        "type": "string"
                                     }
                                 }
                             }
 
                         }
                     }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "Pet already exists!"
+                    }
                 }
             },
             "get": {
-
+                "tags": ["Pets"],
+                "summary": "Profile of a Pet",
+                "description": "List the information of  a Pet",
+                "security": [
+                    { "bearerAuth": []}
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type":"string"
+                                        },
+                                        "species": {
+                                            "type": "string"
+                                        },
+                                        "gender": {
+                                            "type": "string"
+                                        },
+                                        "breed": {
+                                            "type": "string"
+                                        },
+                                        "color": {
+                                            "type": "string"
+                                        },
+                                        "weight": {
+                                            "type": "number"
+                                        },
+                                        "birthdate": {
+                                            "type": "string"
+                                        },
+                                        "chip_number": {
+                                            "type": "string"
+                                        },
+                                        "chip_website": {
+                                            "type": "string"
+                                        },
+                                        "user_id": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 
 import { ICreatePetDTO } from "modules/pets/dtos/ICreatePetDTO";
 import { IPetsRepository } from "modules/pets/repositories/IPetsRepository";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Like, Repository } from "typeorm";
 import { Pet } from "../entities/Pet";
 
 
@@ -69,6 +69,14 @@ class PetsRepository implements IPetsRepository{
             .where("pets.user_id = :user_id", { user_id})
             .getMany();                
         return pet;
+    }
+
+    async listPetsByName(name: string) : Promise<Pet[]> {
+        const pets = await this.repository.find({
+            where: [{name: Like(`%${name}%`)}]
+        })
+
+        return pets;
     }
 }
 

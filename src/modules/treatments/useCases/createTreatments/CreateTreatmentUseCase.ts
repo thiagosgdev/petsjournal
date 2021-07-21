@@ -18,7 +18,7 @@ export class CreateTreatmentUseCase {
         private appointmentsRepository: IAppointmentsRepository
     ){}
 
-    async execute({name, description, pet_id, appointment_id, start_date, end_date}:ICreateTreatmentDTO):Promise<Treatment> {
+    async execute({name, description, pet_id, appointment_id, remedie_id, start_date, end_date}:ICreateTreatmentDTO):Promise<Treatment> {
         const petExists = this.petsRepository.findByID(pet_id);
 
         if(!petExists) {
@@ -38,6 +38,7 @@ export class CreateTreatmentUseCase {
             description,
             pet_id,
             appointment_id,
+            remedie_id,
             start_date,
             end_date
         });

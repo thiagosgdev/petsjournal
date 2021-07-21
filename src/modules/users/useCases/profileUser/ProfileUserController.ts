@@ -5,7 +5,7 @@ import { ProfileUserUseCase } from "./ProfileUserUseCase";
 
 class ProfileUserController {
     async handle(request: Request, response: Response) {
-        const { id } = request.query;
+        const { id } = request.params;
         
         const profileUserUseCase = container.resolve(ProfileUserUseCase);
 

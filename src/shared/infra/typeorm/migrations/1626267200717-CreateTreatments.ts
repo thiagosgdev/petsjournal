@@ -30,6 +30,10 @@ export class CreateTreatments1626267200717 implements MigrationInterface {
                         type: "uuid",
                     },
                     {
+                        name: "remedie_id",
+                        type: "uuid"
+                    },
+                    {
                         name: "start_date",
                         type: "timestamp",
                         isNullable: true
@@ -64,6 +68,14 @@ export class CreateTreatments1626267200717 implements MigrationInterface {
                         referencedTableName: "appointments",
                         referencedColumnNames: ["id"],
                         columnNames:["appointment_id"],
+                        onDelete: "SET NULL",
+                        onUpdate: "SET NULL"
+                    },
+                    {
+                        name: "FKRemedieTreatment",
+                        referencedTableName: "remedies",
+                        referencedColumnNames: ["id"],
+                        columnNames:["remedie_id"],
                         onDelete: "SET NULL",
                         onUpdate: "SET NULL"
                     }

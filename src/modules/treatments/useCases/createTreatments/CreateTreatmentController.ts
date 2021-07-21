@@ -5,7 +5,7 @@ import { CreateTreatmentUseCase } from "./CreateTreatmentUseCase";
 
 export class CreateTreatmentController {
     async handle (request: Request, response: Response): Promise<Response> {
-        const {name, description, pet_id, appointment_id, start_date, end_date} = request.body;
+        const {name, description, pet_id, appointment_id, remedie_id, start_date, end_date} = request.body;
 
         const createTreatmentUseCase = container.resolve(CreateTreatmentUseCase);
 
@@ -14,6 +14,7 @@ export class CreateTreatmentController {
             description,
             pet_id,
             appointment_id,
+            remedie_id,
             start_date,
             end_date
         });

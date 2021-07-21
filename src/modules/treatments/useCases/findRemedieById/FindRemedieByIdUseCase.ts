@@ -4,19 +4,20 @@ import { AppError } from "shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
-export class ListRemediesByTreatmentIdUseCase {
+export class FindRemedieByIdUseCase {
     constructor(
         @inject("RemediesRepository")
         private remediesRepository: IRemediesRepository
     ){}
 
-    async execute(treatment_id:string):Promise<Remedie[]> {
-        const remedies = this.remediesRepository.listRemedieByTreatmentId(treatment_id);
+    async execute(remedie_id: string): Promise<Remedie> {
+        const remedie = await this.remediesRepository.findRemedieById(remedie_id);
 
-        if(!remedies){
-            throw new AppError("Not remedie found for this Treatment ID");
+        if(!remedie) {
+            throw new AppError("Remedie not found!");
         }
 
-        return remedies;
+        return remedie;
     }
+
 }

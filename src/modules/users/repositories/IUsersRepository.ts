@@ -3,8 +3,9 @@ import { User } from "../infra/typeorm/entities/User";
 
 interface IUsersRepository {
     create(data: ICreateUserDTO): Promise<void>;
-    findById(id): Promise<User>;
-    findByEmail(email): Promise<User>;
+    findById(id: string): Promise<User>;
+    findByEmail(email: string): Promise<User>;
+    listUsersByName(name: string): Promise<User[]>;
 }
 
 export { IUsersRepository };

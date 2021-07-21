@@ -5,4 +5,5 @@ export interface IRemediesRepository {
     create(data: ICreateRemediesDTO):Promise<Remedie>;
     findRemedieById(id:string): Promise<Remedie>;
     listRemedieByTreatmentId(treatment_id: string): Promise<Remedie[]>;
+    listRemediesByName(name:string): Promise<Remedie[]>;
 }

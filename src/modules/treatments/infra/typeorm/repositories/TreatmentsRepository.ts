@@ -8,10 +8,11 @@ export class TreatmentsRepository implements ITreatmentsRepository {
     constructor(){
         this.repository = getRepository(Treatment)
     }
-    async create({name, description, pet_id, appointment_id, start_date, end_date}: ICreateTreatmentDTO): Promise<Treatment> {
+    async create({name, description, pet_id, appointment_id, remedie_id, start_date, end_date}: ICreateTreatmentDTO): Promise<Treatment> {
         const treatment = this.repository.create({
             name,
             description,
+            remedie_id,
             start_date,
             end_date,
             appointment_id,
@@ -22,7 +23,7 @@ export class TreatmentsRepository implements ITreatmentsRepository {
         return treatment;
     }
     async listTreatmentsByPetId(pet_id: string): Promise<Treatment[]> {
-        const treatments = this.repository.find({
+        const treatments = await this.repository.find({
             where: [{pet_id: pet_id}]
         })
 
@@ -33,8 +34,19 @@ export class TreatmentsRepository implements ITreatmentsRepository {
 
         return treatment;
     }
-    findTreatmentByAppointmentId(appointment_id: string): Promise<Treatment> {
+    async findTreatmentByAppointmentId(appointment_id: string): Promise<Treatment> {
         throw new Error("Method not implemented.");
     }
+
+    async listRemediesByPetId(pet_id: string): Promise<Treatment[]>{
+        const remedies = await this.repository.find({
+            where: {pet_id},
+            relations: ["remedie"]
+        })
+
+        return remedies;
+    }
+
+
 
 }

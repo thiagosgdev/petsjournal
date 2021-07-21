@@ -1,6 +1,6 @@
 import { ICreateRemediesDTO } from "modules/treatments/dtos/ICreateRemediesDTO";
 import { IRemediesRepository } from "modules/treatments/repositories/IRemediesRepository";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Like, Repository } from "typeorm";
 import { Remedie } from "../entities/Remedie";
 
 export class RemediesRepository implements IRemediesRepository {
@@ -29,6 +29,14 @@ export class RemediesRepository implements IRemediesRepository {
         const remedies = await this.repository.find({
             where: [{treatment_id: treatment_id}]
         });
+        return remedies;
+    }
+
+    async listRemediesByName(name: string): Promise<Remedie[]> {
+        const remedies = await this.repository.find({
+            where: [{name: Like(`%${name}%`)}]
+        })
+
         return remedies;
     }
 }

@@ -7,6 +7,7 @@ interface IPetsRepository {
     findByID(id: string):Promise<Pet>;
     findByChip(chip_number: string): Promise<Pet>;
     findByUser(user_id: string): Promise<Pet[]>;
+    listPetsByName(name: string): Promise<Pet[]>;
 }
 
 export { IPetsRepository }

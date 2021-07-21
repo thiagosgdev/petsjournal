@@ -1,5 +1,6 @@
+import { response } from "express";
 import { IUsersRepository } from "modules/users/repositories/IUsersRepository";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, Like, Repository } from "typeorm";
 import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO";
 import { User } from "../entities/User";
 
@@ -26,7 +27,7 @@ class UsersRepository implements IUsersRepository {
         await this.repository.save(user);
     }
 
-    async findById(id): Promise<User>{
+    async findById(id: string): Promise<User>{
         const user = await this.repository.findOne(id);
         return user;
     }
@@ -34,6 +35,14 @@ class UsersRepository implements IUsersRepository {
     async findByEmail(email:string): Promise<User>{
         const user = await this.repository.findOne({email});
         return user;
+    }
+
+    async listUsersByName(name: string): Promise<User[]> {
+        const users = await this.repository.find({
+            where: [{name: Like(`%${name}%`)}]
+        })
+
+        return users;
     }
 }   
 
