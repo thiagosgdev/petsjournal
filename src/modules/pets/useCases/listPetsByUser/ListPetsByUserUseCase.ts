@@ -14,7 +14,7 @@ export class ListPetsByUserUseCase {
     async execute(user_id: string):Promise<Pet[]>{
         const pet = await this.petsRepository.findByUser(user_id);
 
-        if(!pet) {
+        if(pet.length === 0) {
             throw new AppError("No pet found for this User!");
         }
 

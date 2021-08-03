@@ -12,8 +12,8 @@ class ProfileUserUseCase{
         private usersRepository: IUsersRepository
     ){}
 
-    async execute({id}):Promise<IUserResponseDTO>{
-        const user = await this.usersRepository.findById(id);
+    async execute({email}):Promise<IUserResponseDTO>{
+        const user = await this.usersRepository.findByEmail(email);
         if(!user){
             throw new AppError ("User doesn't exists!");
         }

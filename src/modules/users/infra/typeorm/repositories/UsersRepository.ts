@@ -39,6 +39,7 @@ class UsersRepository implements IUsersRepository {
 
     async listUsersByName(name: string): Promise<User[]> {
         const users = await this.repository.find({
+            select:["id","name", "email","created_at","updated_at"],
             where: [{name: Like(`%${name}%`)}]
         })
 

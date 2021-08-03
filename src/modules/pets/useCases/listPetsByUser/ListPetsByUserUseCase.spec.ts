@@ -12,12 +12,12 @@ let listPetsByUserUseCase: ListPetsByUserUseCase;
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let petsRepositoryInMemory: PetsRepositoryInMemory;
 
-describe("List Pets", () => {
+describe("List Pets",  () => {
     beforeEach(() => {
         petsRepositoryInMemory = new PetsRepositoryInMemory;
         usersRepositoryInMemory = new UsersRepositoryInMemory;
         createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
-        createPetUseCase = new CreatePetUseCase(petsRepositoryInMemory);
+        createPetUseCase = new CreatePetUseCase(petsRepositoryInMemory, usersRepositoryInMemory);
         listPetsByUserUseCase = new ListPetsByUserUseCase(petsRepositoryInMemory);
     });
 
@@ -33,7 +33,7 @@ describe("List Pets", () => {
 
         const user = await usersRepositoryInMemory.findByEmail("test@email.com");
         
-        const petCreated = await createPetUseCase.execute({
+        await createPetUseCase.execute({
             name: "Pet Test",
             species,
             gender,
@@ -78,9 +78,8 @@ describe("List Pets", () => {
             user_id: user.id
         });
 
-        expect (async () => {
-            await listPetsByUserUseCase.execute(randomUserID);
-
-        }).rejects.toEqual(new AppError("No pet found for this User!"));
+        await expect (
+             listPetsByUserUseCase.execute(randomUserID)
+        ).rejects.toEqual(new AppError("No pet found for this User!"));
     });
 });

@@ -18,7 +18,6 @@ export class PetsRepositoryInMemory implements IPetsRepository{
         chip_number,
         chip_website,
         user_id,        
-        id,      
     }: ICreatePetDTO): Promise<Pet> {
         const pet = new Pet;
 
@@ -32,8 +31,7 @@ export class PetsRepositoryInMemory implements IPetsRepository{
             birthdate,
             chip_number,
             chip_website,
-            user_id,        
-            id,   
+            user_id,                           
         });
 
         this.pets.push(pet);
@@ -54,6 +52,11 @@ export class PetsRepositoryInMemory implements IPetsRepository{
         const pet = this.pets.filter((pet) => pet.user_id === user_id);
 
         return pet;
+    }
+
+    async listPetsByName(name: string): Promise<Pet[]> {
+        const pets = this.pets.filter((pet) => pet.name.includes(name));
+        return pets;
     }
 
 }

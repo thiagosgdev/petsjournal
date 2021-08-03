@@ -2,6 +2,7 @@
 import { ICreatePetDTO } from "modules/pets/dtos/ICreatePetDTO";
 import { Pet } from "modules/pets/infra/typeorm/entities/Pet";
 import { IPetsRepository } from "modules/pets/repositories/IPetsRepository";
+import { IUsersRepository } from "modules/users/repositories/IUsersRepository";
 import { AppError } from "shared/errors/AppError";
 import { inject, injectable } from "tsyringe";
 
@@ -9,7 +10,9 @@ import { inject, injectable } from "tsyringe";
 class CreatePetUseCase {
     constructor(
         @inject("PetsRepository")
-        private petsRepository: IPetsRepository
+        private petsRepository: IPetsRepository,
+        @inject("UsersRepository")
+        private usersRepository: IUsersRepository
     ){}
 
     async execute({
@@ -24,6 +27,12 @@ class CreatePetUseCase {
         chip_website,
         user_id
     }:ICreatePetDTO):Promise<Pet>{
+
+        const userExists = await this.usersRepository.findById(user_id);
+
+        if(!userExists){
+            throw new AppError("User doesn't exists!");
+        }
         const petAlreadyExists = await this.petsRepository.findByChip(chip_number);
 
         if(petAlreadyExists){

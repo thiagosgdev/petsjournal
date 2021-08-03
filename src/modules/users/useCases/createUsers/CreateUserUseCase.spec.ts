@@ -37,14 +37,29 @@ describe("Create User", () => {
                 password: "test"
             });
 
-             expect (async ()  => {
-                    await createUserUseCase.execute({
-                        name: "Another User test",
-                        email: "test@email.com",
-                        password: "1234"
-                    }) 
-                }
+             await expect (
+                createUserUseCase.execute({
+                    name: "Another User test",
+                    email: "test@email.com",
+                    password: "1234"
+                }) 
+             ) .rejects.toEqual(new AppError("User already exists!"));
+    });
 
+    it("Should NOT be able to create a User with an already existing e-mail", async () => {        
+
+            await createUserUseCase.execute({
+                name: "User test",
+                email: "test@email.com",
+                password: "test"
+            });
+
+             await expect (
+                createUserUseCase.execute({
+                    name: "Another User test",
+                    email: "test@email.com",
+                    password: "1234"
+                }) 
              ) .rejects.toEqual(new AppError("User already exists!"));
     });
 })

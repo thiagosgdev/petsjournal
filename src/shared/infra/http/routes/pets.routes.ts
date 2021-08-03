@@ -14,7 +14,7 @@ const profilePetController = new ProfilePetController();
 const listPetsByUserController = new ListPetsByUser();
 const listPetsByNameController = new ListPetsByNameController();
 
-petsRoutes.post("/", ensureAuthenticated, createPetController.handle);
+petsRoutes.post("/", createPetController.handle);
 petsRoutes.get("/search/:chip_number", profilePetController.handle);
 petsRoutes.get("/users/:user_id", listPetsByUserController.handle);
 petsRoutes.get("/search", listPetsByNameController.handle);

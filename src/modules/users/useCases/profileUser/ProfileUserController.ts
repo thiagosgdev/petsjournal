@@ -5,11 +5,11 @@ import { ProfileUserUseCase } from "./ProfileUserUseCase";
 
 class ProfileUserController {
     async handle(request: Request, response: Response) {
-        const { id } = request.params;
+        const { email } = request.params;
         
         const profileUserUseCase = container.resolve(ProfileUserUseCase);
 
-        const user = await profileUserUseCase.execute({id});
+        const user = await profileUserUseCase.execute({email});
 
         return response.status(200).json(user);
 

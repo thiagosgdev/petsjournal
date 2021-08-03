@@ -1,11 +1,11 @@
 import { ICreateUserDTO } from "../../dtos/ICreateUserDTO";
 import { User } from "../../infra/typeorm/entities/User";
 import { IUsersRepository } from "../IUsersRepository";
+import { v4 as uuidV4 } from "uuid";
 
 
 
 export class UsersRepositoryInMemory implements IUsersRepository {
-
     users: User[] = [];
 
     async create({name, email, password}: ICreateUserDTO): Promise<void> {
@@ -14,7 +14,8 @@ export class UsersRepositoryInMemory implements IUsersRepository {
         Object.assign(user, {
             name,
             email,            
-            password
+            password,
+            id: uuidV4()
         })
 
         this.users.push(user);
@@ -27,5 +28,9 @@ export class UsersRepositoryInMemory implements IUsersRepository {
     async findByEmail(email: any): Promise<User> {
         const user = this.users.find((user) => user.email === email);
         return user;
+    }
+
+    async listUsersByName(name: string): Promise<User[]> {
+        throw new Error("Method not implemented.");
     }
 }
