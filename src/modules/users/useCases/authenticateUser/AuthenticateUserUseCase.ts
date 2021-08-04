@@ -32,8 +32,9 @@ export class AuthenticateUserUseCase {
         private DateProvider: IDateProvider
     ){}
 
-    async execute(email:string, password:string){
+    async execute(email, password){        
         const user = await this.usersRepository.findByEmail(email);
+        
 
         const {
             secret_refresh_token,

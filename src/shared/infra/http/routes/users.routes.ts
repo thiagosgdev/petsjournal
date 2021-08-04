@@ -16,6 +16,6 @@ const updateUserController = new UpdateUserController();
 usersRoutes.post("/", createUserController.handle);
 usersRoutes.get("/search/:email", profileUserController.handle);
 usersRoutes.get("/search", listUsersByNameController.handle);
-usersRoutes.put("/", ensureAuthenticated, updateUserController.handle);
+usersRoutes.patch("/", ensureAuthenticated, updateUserController.handle);
 
 export { usersRoutes };

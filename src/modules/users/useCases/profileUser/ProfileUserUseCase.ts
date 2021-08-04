@@ -15,7 +15,7 @@ class ProfileUserUseCase{
     async execute({email}):Promise<IUserResponseDTO>{
         const user = await this.usersRepository.findByEmail(email);
         if(!user){
-            throw new AppError ("User doesn't exists!");
+            throw new AppError ("User doesn't exists!", 404);
         }
 
         return UserMap.toDTO(user);

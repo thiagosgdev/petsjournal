@@ -48,7 +48,50 @@
                         "description": "User already exists!"
                     }
                 }
-            },
+            } ,
+            "patch": {
+                "tags": ["Users"],
+                "summary": "Patch an User",
+                "description": "Patch an new User",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },                                    
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "User test",
+                                    "password": "Patched password"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/User"                                
+                                }                                
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found."
+                    }
+                }
+            }          
+        },
+        "users/search/:email": {
             "get": {
                 "tags": ["Users"],
                 "summary": "Profile of an User",
@@ -57,9 +100,9 @@
                     { "bearerAuth": []}
                 ],
                 "parameters": [{
-                    "name": "user_id",
+                    "name": "email",
                     "in": "path",
-                    "description": "The user that needs to be fetched.",
+                    "description": "The e-mail of the user that needs to be fetched.",
                     "required": true,
                     "type": "string"
                 }],
@@ -69,24 +112,49 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "object",
-                                    "properties": {
-                                        "id": {
-                                            "type": "string"
-                                        },
-                                        "name": {
-                                            "type": "string"
-                                        },
-                                        "email": {
-                                            "type": "string"
-                                        },
-                                        "token": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
+                                    "$ref": "#/definitions/User"                                
+                                }                                
                             }
                         }
+                    },
+                    "404": {
+                        "description": "User not found."
+                    }
+                }
+            }
+        },
+        "users/search": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "List users by name",
+                "description": "List all users by name using a string as input",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }                                                            
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/User"                                
+                                }                                
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User not found."
                     }
                 }
             }
@@ -137,7 +205,6 @@
                                     }
                                 }
                             }
-
                         }
                     }
                 },
@@ -209,6 +276,100 @@
                             }
                         }
                     }
+                }
+            }
+        },
+        "/pets/search/:chip_number": {
+            "get": {
+                "tags": ["Pets"],
+                "summary": "Find Pet by Chip Number",
+                "description": "Find Pet by Chip Number",
+                "parameters": {
+                    "name": "chip_number",
+                    "in": "path",
+                    "description": "The number of the chip registered for a Pet.",
+                    "required": true,
+                    "type": "string"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/Pet"                                
+                                }                                
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pet not found."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type":"object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "species": {
+                    "type": "enum",
+                    "values": ""
+                },
+                "email": {
+                    "type": "string"
+                }
+            }
+        },
+        "Pet": {
+            "type":"object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "species": {
+                    "type": "string",
+                    "enum": [
+                        "CAT", 
+                        "DOG", 
+                        "BIRD", 
+                        "FISH"
+                    ]
+                },
+                "gender": {
+                    "type": "string",
+                    "enum": [
+                        "MALE",
+                        "FEMALE"
+                    ]
+                },
+                "breed": {
+                    "type": "string"
+                },
+                "color": {
+                    "type": "string"
+                },
+                "weight": {
+                    "type": "number"
+                },
+                "birthdate": {
+                    "type": "Date"
+                },
+                "chip_number": {
+                    "type": "string"
+                },
+                "chip_website": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
                 }
             }
         }
